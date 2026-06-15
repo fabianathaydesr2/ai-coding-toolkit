@@ -1,6 +1,70 @@
-# AI Coding Tookit for Plaid
+# AI Coding Toolkit for Plaid
 
-A comprehensive toolkit designed to accelerate Plaid integration development using AI coding assistants. This repository provides sandbox MCP tools (mock data generation, documentation search capabilities, etc.) and product-specific guides to help developers build Plaid integrations faster and more efficiently with AI assistance.
+A comprehensive toolkit designed to accelerate Plaid integration development using AI coding assistants. This repository provides sandbox MCP tools (mock data generation, documentation search capabilities, webhook simulation, and more).
+
+## Quick Start
+
+### Prerequisites
+- Python 3.10+
+- uv (package manager)
+- Plaid API credentials (for production use)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/fabianathaydesr2/ai-coding-toolkit.git
+cd ai-coding-toolkit
+
+# Install dependencies
+cd sandbox
+uv sync
+
+# Set environment variables (for production)
+export PLAID_CLIENT_ID="your_client_id"
+export PLAID_SECRET="your_secret"
+
+# Run the MCP server
+python -m mcp_server_plaid
+```
+
+### Quick Verification
+
+```bash
+# Verify installation
+python -c "import mcp; print(f'✓ MCP version: {mcp.__version__}')"
+
+# Run tests
+pytest
+
+# Start the server
+python -m mcp_server_plaid --help
+```
+
+## Troubleshooting
+
+### Module not found errors
+```bash
+# Ensure you're in the sandbox directory and dependencies are synced
+cd sandbox
+uv sync --refresh
+```
+
+### Permission errors
+```bash
+# Set proper permissions for the .env file
+chmod 600 .env
+```
+
+### Server won't start
+```bash
+# Check for port conflicts
+lsof -i :8000
+
+# Verify Plaid credentials are set correctly
+echo $PLAID_CLIENT_ID
+echo $PLAID_SECRET
+```
 
 ## Repository Structure
 
@@ -45,8 +109,24 @@ The `/rules` directory contains comprehensive guides for various Plaid products 
 Using these rules significantly accelerates development by giving AI models the context they need to generate code for Plaid integrations.
 
 > [!WARNING]
-These guides are designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security, privacy, and compliance of your own app and Plaid integration. This guide is provided under the MIT license and is provided as-is and without warranty of any kind.
+These guides are designed to be used for the purpose of building a sample Plaid integration with the use of AI coding tools. You are solely responsible for ensuring the correctness, legality, security and performance of your code and integrations. These guidelines are provided "as-is" without any warranties. Use them at your own risk and discretion.
+
+## Recent Updates
+
+### Dependencies Updated (v2.0.0)
+- **mcp**: 1.6.0 → 1.23.0 (Latest MCP spec 2025-11-25)
+- **starlette**: 0.46.1 → 1.0.1 (**STABLE RELEASE** 🎉)
+- **pytest**: 8.3.5 → 9.0.3 (Security fixes)
+- **urllib3**: 2.4.0 → 2.7.0 (Security patches)
+- **python-dotenv**: 1.1.0 → 1.2.2 (Python 3.14 support)
+- **h11**: 0.14.0 → 0.16.0 (Validation improvements)
+- **idna**: 3.10 → 3.15 (Unicode 17.0.0 support)
+
+**Security Highlights:**
+- ✅ urllib3 2.7.0: Fixed decompression-bomb vulnerabilities (GHSA-mf9v-mfxr-j63j)
+- ✅ pytest 9.0.3: Fixed insecure temporary directory (CVE-2025-71176)
+- ✅ idna 3.15: Resolved CVE-2026-45409 quadratic time processing
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
